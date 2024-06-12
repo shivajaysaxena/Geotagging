@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedding and Extraction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Embedding and Extraction</h1>
+        <div class="options">
+            <a href="{{ url_for('embed') }}" class="btn">Embed Data</a>
+            <a href="{{ url_for('extract') }}" class="btn">Extract Data</a>
+        </div>
+    </div>
+</body>
+</html>

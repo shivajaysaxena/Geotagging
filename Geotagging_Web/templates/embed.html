@@ -1,0 +1,174 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Embed Data into Image</h1>
+        <form id="embedForm" method="post" enctype="multipart/form-data">
+            <label for="file" class="custom-file-upload">
+                Choose Image File
+                <input type="file" id="file" name="file">
+            </label>
+            <label for="data">Data to Embed</label>
+            <input type="text" id="data" name="data" placeholder="Enter data to embed...">
+            <input type="submit" value="Submit" class="btn">
+        </form>
+
+        <div id="loading">
+            <img src="{{ url_for('static', filename='images/load.gif') }}" alt="Loading...">
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('embedForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('loading').style.display = 'flex'; // Show loading screen
+    
+            var formData = new FormData(this);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process_embed', true);
+    
+            xhr.onload = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                var response = JSON.parse(xhr.responseText);
+                var messageElement = document.getElementById('message');
+                messageElement.innerText = response.message;
+                messageElement.style.display = 'block';
+                if (response.status === 'success') {
+                    window.location.href = '/result/embed';
+                }
+            };
+    
+            xhr.onerror = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                alert('Request failed');
+            };
+    
+            xhr.send(formData);
+        });
+    
+        // Hide loading screen initially
+        document.getElementById('loading').style.display = 'none';
+    </script>
+    
+</body>
+</html> -->
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <style>
+        #cancel-upload {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 80px;
+            text-align: center;
+        }
+        #cancel-upload:hover {
+            background-color: #ff6666;
+        }
+        #image-name {
+            margin-top: 10px;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Embed Data into Image</h1>
+        <form id="embedForm" method="post" enctype="multipart/form-data">
+            <label for="file" class="custom-file-upload">
+                Choose Image File
+                <input type="file" id="file" name="file">
+            </label>
+            <div id="image-name" style="display: none;"></div>
+            <label for="data">Data to Embed</label>
+            <input type="text" id="data" name="data" placeholder="Enter data to embed...">
+            <div class="btn-container">
+                <input type="submit" value="Submit" class="btn">
+                <button id="cancel-upload" type="button">Cancel</button>
+            </div>
+        </form>
+
+        <div id="loading">
+            <img src="{{ url_for('static', filename='images/load.gif') }}" alt="Loading...">
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('embedForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('loading').style.display = 'flex'; // Show loading screen
+    
+            var formData = new FormData(this);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process_embed', true);
+    
+            xhr.onload = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                var response = JSON.parse(xhr.responseText);
+                var messageElement = document.getElementById('message');
+                messageElement.innerText = response.message;
+                messageElement.style.display = 'block';
+                if (response.status === 'success') {
+                    window.location.href = '/result/embed';
+                }
+            };
+    
+            xhr.onerror = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                alert('Request failed');
+            };
+    
+            xhr.send(formData);
+        });
+    
+        // Hide loading screen initially
+        document.getElementById('loading').style.display = 'none';
+
+        document.getElementById('file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('image-name').innerText = file.name;
+                document.getElementById('image-name').style.display = 'block';
+            }
+        });
+
+        document.getElementById('cancel-upload').addEventListener('click', function() {
+            document.getElementById('file').value = null;
+            document.getElementById('image-name').style.display = 'none';
+            document.getElementById('image-name').innerText = '';
+        });
+    </script>
+    
+</body>
+</html>
+
+
+

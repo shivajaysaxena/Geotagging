@@ -1,0 +1,343 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Extract Data from Image</h1>
+        <form id="extractForm" method="post" enctype="multipart/form-data">
+            <label for="file" class="custom-file-upload">
+                Choose Image File
+                <input type="file" id="file" name="file">
+            </label>
+            <input type="submit" value="Submit" class="btn">
+        </form>
+
+        <div id="loading">
+            <img src="{{ url_for('static', filename='images/load.gif') }}" alt="Loading...">
+        </div>
+
+        <h3 class="message" id="message"></h3>
+    </div>
+
+    <script>
+        document.getElementById('extractForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('loading').style.display = 'flex'; // Show loading screen
+    
+            var formData = new FormData(this);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process_extract', true);
+    
+            xhr.onload = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                var response = JSON.parse(xhr.responseText);
+                var messageElement = document.getElementById('message');
+                if (response.status === 'success') {
+                    messageElement.innerText = 'Extracted Data: ' + response.data;
+                } else {
+                    messageElement.innerText = response.message;
+                }
+                messageElement.style.display = 'block';
+            };
+    
+            xhr.onerror = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                alert('Request failed');
+            };
+    
+            xhr.send(formData);
+        });
+    
+        // Hide loading screen initially
+        document.getElementById('loading').style.display = 'none';
+    </script>
+    
+</body>
+</html>
+
+ -->
+
+
+
+
+
+
+
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <style>
+        #cancel-upload {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 80px;
+            text-align: center;
+        }
+        #cancel-upload:hover {
+            background-color: #ff6666;
+        }
+        #image-name {
+            margin-top: 10px;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Extract Data from Image</h1>
+        <form id="extractForm" method="post" enctype="multipart/form-data">
+            <label for="file" class="custom-file-upload">
+                Choose Image File
+                <input type="file" id="file" name="file">
+            </label>
+            <div id="image-name" style="display: none;"></div>
+            <div class="btn-container">
+                <input type="submit" value="Submit" class="btn">
+                <button id="cancel-upload" type="button">Cancel</button>
+            </div>
+        </form>
+
+        <div id="loading">
+            <img src="{{ url_for('static', filename='images/load.gif') }}" alt="Loading...">
+        </div>
+
+        <h3 class="message" id="message"></h3>
+    </div>
+
+    <script>
+        document.getElementById('extractForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('loading').style.display = 'flex'; // Show loading screen
+    
+            var formData = new FormData(this);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process_extract', true);
+    
+            xhr.onload = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                var response = JSON.parse(xhr.responseText);
+                var messageElement = document.getElementById('message');
+                if (response.status === 'success') {
+                    messageElement.innerText = 'Extracted Data: ' + response.data;
+                } else {
+                    messageElement.innerText = response.message;
+                }
+                messageElement.style.display = 'block';
+            };
+    
+            xhr.onerror = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                alert('Request failed');
+            };
+    
+            xhr.send(formData);
+        });
+    
+        // Hide loading screen initially
+        document.getElementById('loading').style.display = 'none';
+
+        document.getElementById('file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('image-name').innerText = file.name;
+                document.getElementById('image-name').style.display = 'block';
+            }
+        });
+
+        document.getElementById('cancel-upload').addEventListener('click', function() {
+            document.getElementById('file').value = null;
+            document.getElementById('image-name').style.display = 'none';
+            document.getElementById('image-name').innerText = '';
+        });
+    </script>
+    
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <style>
+        #cancel-upload {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 80px;
+            text-align: center;
+        }
+        #cancel-upload:hover {
+            background-color: #ff6666;
+        }
+        #image-name {
+            margin-top: 10px;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px;
+        }
+        #scratch-card {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #ccc;
+            display: none;
+            margin-top: 20px;
+        }
+        #scratch-card canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #extracted-info {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Extract Data from Image</h1>
+        <form id="extractForm" method="post" enctype="multipart/form-data">
+            <label for="file" class="custom-file-upload">
+                Choose Image File
+                <input type="file" id="file" name="file">
+            </label>
+            <div id="image-name" style="display: none;"></div>
+            <div class="btn-container">
+                <input type="submit" value="Submit" class="btn">
+                <button id="cancel-upload" type="button">Cancel</button>
+            </div>
+        </form>
+
+        <div id="loading">
+            <img src="{{ url_for('static', filename='images/load.gif') }}" alt="Loading...">
+        </div>
+
+        <div id="scratch-card">
+            <div id="extracted-info"></div>
+            <canvas></canvas>
+        </div>
+
+        <h3 class="message" id="message"></h3>
+    </div>
+
+    <script>
+        document.getElementById('extractForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('loading').style.display = 'flex'; // Show loading screen
+
+            var formData = new FormData(this);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process_extract', true);
+
+            xhr.onload = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                var response = JSON.parse(xhr.responseText);
+                var messageElement = document.getElementById('message');
+                if (response.status === 'success') {
+                    document.getElementById('scratch-card').style.display = 'block';
+                    document.getElementById('extracted-info').innerText = response.data;
+                    initScratchCard();
+                } else {
+                    messageElement.innerText = response.message;
+                }
+                messageElement.style.display = 'block';
+            };
+
+            xhr.onerror = function() {
+                document.getElementById('loading').style.display = 'none'; // Hide loading screen
+                alert('Request failed');
+            };
+
+            xhr.send(formData);
+        });
+
+        // Hide loading screen initially
+        document.getElementById('loading').style.display = 'none';
+
+        document.getElementById('file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('image-name').innerText = file.name;
+                document.getElementById('image-name').style.display = 'block';
+                document.getElementById('message').innerText = ''; // Clear error message
+            }
+        });
+
+        document.getElementById('cancel-upload').addEventListener('click', function() {
+            document.getElementById('file').value = null;
+            document.getElementById('image-name').style.display = 'none';
+            document.getElementById('image-name').innerText = '';
+            document.getElementById('scratch-card').style.display = 'none'; // Add this line to hide the scratch card
+        });
+
+        function initScratchCard() {
+            const canvas = document.querySelector('#scratch-card canvas');
+            const ctx = canvas.getContext('2d');
+            const scratchCard = document.getElementById('scratch-card');
+            const width = scratchCard.offsetWidth;
+            const height = scratchCard.offsetHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx.fillStyle = '#888';
+            ctx.fillRect(0, 0, width, height);
+
+            let isDrawing = false;
+
+            canvas.addEventListener('mousedown', () => { isDrawing = true; });
+            canvas.addEventListener('mouseup', () => { isDrawing = false; });
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDrawing) {
+                    const rect = canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 15, 0, Math.PI * 2, false);
+                    ctx.fill();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
